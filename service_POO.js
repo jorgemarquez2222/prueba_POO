@@ -5,13 +5,12 @@ class UsersService {
     #headers
     #method
     #libReq
-    constructor(url, method, libReq) {
+    constructor(url, method) {
         this.#url = url
         this.#method = method
         this.#headers = {
             'Content-Type': 'application/json'
         }
-        this.#libReq = libReq
     }
     async deleteUser(person) {
         try {
@@ -20,7 +19,7 @@ class UsersService {
                     id: person.id
                 }
             }
-            const response = await this.#libReq.delete(`${this.#url}/user`, options)
+            const response = await axios.delete(`${this.#url}/user`, options)
             return response.data
         } catch (e) {
             return e.message
@@ -34,7 +33,7 @@ class UsersService {
                 headers: this.#headers,
                 data
             };
-            const resp = await this.#libReq(config)
+            const resp = await axios(config)
             return resp.data
 
         } catch (e) {
